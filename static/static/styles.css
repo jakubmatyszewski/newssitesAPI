@@ -1,0 +1,38 @@
+html, body { height: 100%; }
+
+body { 
+	background-color: #0e2951;
+	padding-bottom: 50px;
+	padding-top: 50px;
+}
+
+.main-wrapper {
+	background-color: #fff;
+	display: block;
+	height: 100%;
+	padding: 50px;
+}
+
+.form-input {
+	background: none;
+	border: none;
+	border-bottom: 1px solid #000;
+	height: 30px;
+	margin-bottom: 10px;
+	max-width: 600px;
+	outline: none;
+}
+
+.submit-button {
+	background: none;
+	border: 1px solid #1b4a8f;
+	color: #1b4a8f;
+	margin: 10px;
+	outline: none;
+	width: 100px;
+}
+
+.submit-button:hover {
+	color: #fff;
+	background-color: #1b4a8f;
+}
