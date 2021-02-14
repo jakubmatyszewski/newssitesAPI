@@ -30,7 +30,7 @@ def get_news(date: Union[str, datetime] = datetime.now(),
              db: Session = Depends(get_db),
              site: str = 'tvn24',
              limit: int = 1):
-    sites = {'tvn24': models.Tvn24, 'tvpinfo': models.Tvpinfo}
+    headline = models.Headline
     if isinstance(date, str):
         date_format = '%Y-%m-%dT%H:%M:%S'
         if len(date) <= 10:
@@ -38,8 +38,22 @@ def get_news(date: Union[str, datetime] = datetime.now(),
         else:
             date_format = date_format[:len(date) - 2]
         date = datetime.strptime(date[:19], date_format)
-    return db.query(sites[site]).filter(sites[site].time_stamp <= date).\
-        order_by(sites[site].time_stamp.desc()).limit(limit).all()
+    return db.query(headline).filter(headline.time_stamp <= date).\
+        order_by(headline.time_stamp.desc()).limit(limit).all()
+
+
+@app.post("/news")  # , response_model=schemas.NewsOut)
+def add_news(date: Union[str, datetime] = datetime.now(),
+             db: Session = Depends(get_db),
+             site: str = 'tvn24'):
+    headline = models.Headline(
+        headline='test',
+        time_stamp=datetime.now(),
+        site=site
+    )
+    db.add(headline)
+    db.commit()
+    return True
 
 
 @app.get("/", response_class=HTMLResponse)
